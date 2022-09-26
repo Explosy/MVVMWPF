@@ -21,17 +21,32 @@
                         <Setter Property="Background" Value="BurlyWood" />
                     </Style>
                 </StackPanel.Resources>
-                <Button>+</Button>
+                <Button Command="{Binding AddCommand}">+</Button>
                 <Button>-</Button>
                 <Button>Save</Button>
                 <Button>Open</Button>
             </StackPanel>
-            <ListBox>
-                
+            <ListBox Grid.Column="0" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock FontSize="18" Text="{Binding Path=Title}" />
+                            <TextBlock Text="{Binding Path=Author}" />
+                            <TextBlock Text="{Binding Path=Year}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </DockPanel>
-        <UniformGrid Grid.Column="1" Columns="2" Rows="5">
-            
+        <UniformGrid Grid.Column="1" Columns="2" Rows="5" DataContext="{Binding SelectedBook}">
+            <TextBlock Text="Название" />
+            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Автор" />
+            <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Издательство" />
+            <TextBox Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Год" />
+            <TextBox Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" />
         </UniformGrid>
     </Grid>
 </Window>
