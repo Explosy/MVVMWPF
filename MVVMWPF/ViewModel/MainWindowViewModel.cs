@@ -54,7 +54,7 @@ namespace MVVMWPF.ViewModel
         #endregion AddCommand
         #region DeleteCommand
         private BaseCommand delCommand;
-        public BaseCommand DelCommand
+        public BaseCommand DeleteCommand
         {
             get
             {

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MVVMWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="10,5,5,5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -22,11 +22,11 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Command="{Binding AddCommand}">+</Button>
-                <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding SelectedBook}">-</Button>
+                <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedBook}">-</Button>
                 <Button>Save</Button>
                 <Button>Open</Button>
             </StackPanel>
-            <ListBox Grid.Column="0" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListBox Grid.Column="0" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}" BorderThickness="5" d:ItemsSource="{d:SampleData ItemCount=5}" BorderBrush="BurlyWood">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
@@ -39,7 +39,18 @@
             </ListBox>
         </DockPanel>
         <UniformGrid Grid.Column="1" Columns="2" Rows="5" DataContext="{Binding SelectedBook}">
-            <TextBlock Text="Название" />
+            <UniformGrid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="18"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Margin" Value="0,0,5,0"/>
+                </Style>
+            </UniformGrid.Resources>
+            <TextBlock Text="Название"/>
             <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Автор" />
             <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" />
