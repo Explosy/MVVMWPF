@@ -35,8 +35,8 @@ namespace MVVMWPF.ViewModel
                 new Book {Title="Learning C# by Developing Games with Unity 3D", Author="Terry Norton", Year=2013 }
             };
         }
-
         #region Command
+        #region AddCommand
         private BaseCommand addCommand;
         public BaseCommand AddCommand
         {
@@ -51,9 +51,30 @@ namespace MVVMWPF.ViewModel
                 }));
             }
         }
-        #endregion Command
-
-
+        #endregion AddCommand
+        #region DeleteCommand
+        private BaseCommand delCommand;
+        public BaseCommand DelCommand
+        {
+            get
+            {
+                if (delCommand != null)
+                    return delCommand;
+                else
+                {
+                    Action<object> Execute = o =>
+                    {
+                        Book b = (Book)o;
+                        Books.Remove(b);
+                    };
+                    Func<object, bool> CanExecute = o => Books.Count > 0;
+                    delCommand = new BaseCommand(Execute, CanExecute);
+                    return delCommand;
+                }
+            }
+        }
+        #endregion
+        #endregion
 
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -22,7 +22,7 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Command="{Binding AddCommand}">+</Button>
-                <Button>-</Button>
+                <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding SelectedBook}">-</Button>
                 <Button>Save</Button>
                 <Button>Open</Button>
             </StackPanel>
