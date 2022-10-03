@@ -23,8 +23,8 @@
                 </StackPanel.Resources>
                 <Button Command="{Binding AddCommand}">+</Button>
                 <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedBook}">-</Button>
-                <Button>Save</Button>
-                <Button>Open</Button>
+                <Button Command="{Binding SaveCommand}">Save</Button>
+                <Button Command="{Binding LoadCommand}">Open</Button>
             </StackPanel>
             <ListBox Grid.Column="0" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}" BorderThickness="5" d:ItemsSource="{d:SampleData ItemCount=5}" BorderBrush="BurlyWood">
                 <ListBox.ItemTemplate>

@@ -1,11 +1,9 @@
 ﻿using MVVMWPF.Model;
+using MVVMWPF.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MVVMWPF.ViewModel
 {
@@ -24,16 +22,23 @@ namespace MVVMWPF.ViewModel
             }
         }
 
-
+        private FileSaver fileSaver;
+        private FileParser fileParser;
         public MainWindowViewModel()
         {
-            Books = new ObservableCollection<Book>
-            {
-                new Book {Title="WPF Unleashed", Author="Adam Natan", Year=2012 },
-                new Book {Title="F# for Machine Learning", Author="Sudipta Mukherjee", Year=2016 },
-                new Book {Title="F# for Fun and Profit", Author="Scott Wlaschin", Year=2015 },
-                new Book {Title="Learning C# by Developing Games with Unity 3D", Author="Terry Norton", Year=2013 }
-            };
+            fileSaver = new FileSaver() { SaveStrategy = new JsonSaver() };
+            fileParser = new FileParser() { ParseStrategy = new JsonParser() };
+
+            Books = new ObservableCollection<Book>();
+
+            #region Тестовые данные
+            //{
+            //    new Book {Title="WPF Unleashed", Author="Adam Natan", Year=2012 },
+            //    new Book {Title="F# for Machine Learning", Author="Sudipta Mukherjee", Year=2016 },
+            //    new Book {Title="F# for Fun and Profit", Author="Scott Wlaschin", Year=2015 },
+            //    new Book {Title="Learning C# by Developing Games with Unity 3D", Author="Terry Norton", Year=2013 }
+            //};
+            #endregion
         }
         #region Command
         #region AddCommand
@@ -74,14 +79,44 @@ namespace MVVMWPF.ViewModel
             }
         }
         #endregion
+        #region SaveCommand
+        private BaseCommand saveCommand;
+        public BaseCommand SaveCommand
+        {
+            get
+            {
+                return saveCommand ??
+                (saveCommand = new BaseCommand(obj =>
+                {
+                    fileSaver.Save(Books);
+                }));
+            }
+        }
+        #endregion
+        #region LoadCommand
+        private BaseCommand loadCommand;
+        public BaseCommand LoadCommand
+        {
+            get
+            {
+                return loadCommand ??
+                (loadCommand = new BaseCommand(obj =>
+                {
+                    Books.Clear();
+                    Books.AddRange(fileParser.GetData());
+                }));
+            }
+        }
+        #endregion
         #endregion
 
-
+        #region IPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+        #endregion
     }
 }
