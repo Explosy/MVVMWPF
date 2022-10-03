@@ -10,7 +10,7 @@ namespace MVVMWPF.Services
     internal static class ObservableCollectionExtention
     {
         /// <summary>
-        /// Метод расширения - добавляет в коллекцию заданную коллекцию
+        /// Метод расширения - добавляет в ObservableCollection заданную коллекцию реализующуй интерфейс IEnumerable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>

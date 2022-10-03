@@ -9,11 +9,11 @@ using Newtonsoft.Json;
 namespace MVVMWPF.Services
 {
     /// <summary>
-    /// Интерфейс парсинга файла в объект DataTable.
+    /// Интерфейс парсинга файла в коллекцию.
     /// </summary>
     interface IParser
     {
-        IEnumerable<Book> GetData(string filePath);
+        IEnumerable<T> GetData<T>(string filePath);
         void SetupFileDialog(OpenFileDialog openFileDialog);
     }
 
@@ -23,16 +23,16 @@ namespace MVVMWPF.Services
         /// Метод реализующий интерфейс IParser. Преобразует файл Json в коллекцию
         /// </summary>
         /// <param name="filePath">Путь к выбранному файлу</param>
-        /// <returns>Возвращает объект коллекции</returns>
-        public IEnumerable<Book> GetData(string filePath)
+        /// <returns>Возвращает интерфейсную ссылку IEnumerable</returns>
+        public IEnumerable<T> GetData<T>(string filePath)
         {
-            IEnumerable<Book> data;
+            IEnumerable<T> data;
             string jsonstring;
             using (StreamReader streamReader = new StreamReader(filePath))
             {
                 jsonstring = streamReader.ReadToEnd();
             }
-            data = JsonConvert.DeserializeObject<IEnumerable<Book>>(jsonstring);
+            data = JsonConvert.DeserializeObject<IEnumerable<T>>(jsonstring);
             return data;
         }
         /// <summary>

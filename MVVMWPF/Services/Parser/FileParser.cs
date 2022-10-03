@@ -26,15 +26,15 @@ namespace MVVMWPF.Services
         /// <summary>
         /// Метод, создающий диалоговое окно выбора файла, а также запускающий реализацию текущей стратегии парсинга из ParseStrategy.
         /// </summary>
-        /// <returns>Возвращает объект DataTable</returns>
-        public IEnumerable<Book> GetData()
+        /// <returns>Возвращает интерфейсную ссылку IEnumerable</returns>
+        public IEnumerable<T> GetData<T>()
         {
-            IEnumerable<Book> data;
+            IEnumerable<T> data;
             ParseStrategy.SetupFileDialog(openFileDialog);
             if (openFileDialog.ShowDialog() == true)
             {
                 string filePath = openFileDialog.FileName;
-                data = ParseStrategy.GetData(filePath);
+                data = ParseStrategy.GetData<T>(filePath);
                 return data;
             }
             return null;

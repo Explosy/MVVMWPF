@@ -1,8 +1,7 @@
 ﻿using Microsoft.Win32;
-using MVVMWPF.Model;
 using System;
 using System.Collections.Generic;
-using System.Data;
+
 
 namespace MVVMWPF.Services
 {
@@ -27,7 +26,7 @@ namespace MVVMWPF.Services
         /// Метод, создающий диалоговое окно сохранения, а также запускающий реализацию текущей стратегии сохранения из SaveStrategy.
         /// </summary>
         /// <param name="data"></param>
-        public void Save (IEnumerable<Book> data)
+        public void Save<T>(IEnumerable<T> data)
         {
             SaveStrategy.SetupFileDialog(saveFileDialog);
             if (saveFileDialog.ShowDialog() == true)

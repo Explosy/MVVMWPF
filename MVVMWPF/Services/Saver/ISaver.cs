@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Microsoft.Win32;
-using MVVMWPF.Model;
 using Newtonsoft.Json;
 
 namespace MVVMWPF.Services
@@ -17,7 +15,7 @@ namespace MVVMWPF.Services
         /// </summary>
         /// <param name="data">Коллекция для сохранения</param>
         /// <param name="filePath">Путь сохранения файла</param>
-        void Save(IEnumerable<Book> data, string filePath);
+        void Save<T>(IEnumerable<T> data, string filePath);
         /// <summary>
         /// Метод настройки диалогового окна настройки
         /// </summary>
@@ -32,7 +30,7 @@ namespace MVVMWPF.Services
         /// </summary>
         /// <param name="data">Коллекция для сохранения</param>
         /// <param name="filePath">Путь сохранения файла</param>
-        public void Save(IEnumerable<Book> data, string filePath)
+        public void Save<T>(IEnumerable<T> data, string filePath)
         {
             string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
             using (StreamWriter streamWriter = new StreamWriter(filePath, false))

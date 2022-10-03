@@ -11,7 +11,6 @@ namespace MVVMWPF.ViewModel
     {
         private Book selectedBook;
         public ObservableCollection<Book> Books { get; set; }
-        
         public Book SelectedBook
         {
             get { return selectedBook; }
@@ -103,7 +102,7 @@ namespace MVVMWPF.ViewModel
                 (loadCommand = new BaseCommand(obj =>
                 {
                     Books.Clear();
-                    Books.AddRange(fileParser.GetData());
+                    Books.AddRange(fileParser.GetData<Book>());
                 }));
             }
         }
